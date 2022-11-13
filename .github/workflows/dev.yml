@@ -26,7 +26,7 @@ jobs:
     - name: Set node packagerOptions
       run: export NODE_OPTIONS=--max_old_space_size=8192
     - name: Install npm dependencies
-      run: npm install
+      run: npm ci
     - run: echo "npm dependencies install success"
     - name: Install npm global tool
       run: npm install -g node-prune modclean
