@@ -45,9 +45,8 @@ jobs:
     - name: List files in the repository
       run: |
         ls ${{ github.workspace }}
-     - run: echo "npm dependencies install success"
-     - name: Check serverless  version
-       run: serverless --version
+    - name: Check serverless  version
+      run: serverless --version
     - name: serverless deploy
       uses: serverless/github-action@v3.1
       with:
