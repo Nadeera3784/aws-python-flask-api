@@ -46,7 +46,7 @@ jobs:
       run: |
         ls ${{ github.workspace }}
     - name: Check serverless  version
-      run: serverless --version
+      run: npx serverless --version
     - name: serverless deploy
       uses: serverless/github-action@v3.1
       with:
