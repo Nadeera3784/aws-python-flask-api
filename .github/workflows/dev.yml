@@ -2,7 +2,7 @@ name:  Dev API Build
 on:
   push:
     branches: 
-      - main
+      - master
 jobs:
   build:
     runs-on: ubuntu-latest
