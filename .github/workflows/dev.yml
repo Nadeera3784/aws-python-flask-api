@@ -28,9 +28,6 @@ jobs:
     - name: Install npm dependencies
       run: npm install
     - run: echo "npm dependencies install success"
-    - name: Install serverless
-      run : npm install --global serverless
-    - run: echo "npm serverless install success"
     - name: Install npm global tool
       run: npm install -g node-prune modclean
     - name: Remove npm unnecessary files
@@ -48,6 +45,9 @@ jobs:
     - name: List files in the repository
       run: |
         ls ${{ github.workspace }}
+     - run: echo "npm dependencies install success"
+     - name: Check serverless  version
+       run: serverless --version
     - name: serverless deploy
       uses: serverless/github-action@v3.1
       with:
