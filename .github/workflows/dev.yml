@@ -49,8 +49,8 @@ jobs:
     - name: List files in the repository
       run: |
         ls ${{ github.workspace }}
-    - name: Check serverless  version
-      run:  sls --version
+    # - name: Check serverless  version
+    #   run:  sls --version
     - name: serverless deploy
       # uses: serverless/github-action@v3.1
       # with:
