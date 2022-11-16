@@ -1,21 +1,18 @@
 service: aws-python-flask-api
-
 frameworkVersion: '3'
-
 custom:
   wsgi:
     app: app.app
     packRequirements: false
-  pythonRequirements:
-    dockerizePip: non-linux
-
 provider:
   name: aws
   runtime: python3.9
-
+  stage: dev
+  region: us-east-1
+  memorySize: 128
 functions:
   api:
-    handler: wsgi_handler.handler
+    handler: wsgi.handler
     events:
       - httpApi: '*'
 
