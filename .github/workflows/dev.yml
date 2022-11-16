@@ -34,12 +34,12 @@ jobs:
     #     python -m pip install
     #     pip install -r requirements.txt      
 
-    
+
     - name: Initialize Python 3.9
       uses: actions/setup-python@v4
-        with:
-          python-version: '3.9'
-          cache: 'pip' 
+      with:
+        python-version: '3.9'
+        cache: 'pip' 
     - run: pip install -r requirements.txt
     - run: echo "python --version"
     - name: serverless deploy
