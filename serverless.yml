@@ -3,6 +3,8 @@ service: aws-python-flask-api
 frameworkVersion: '3'
 
 custom:
+  pythonRequirements:
+  pythonBin: python3
   wsgi:
     app: app.app
 
