@@ -10,6 +10,10 @@ jobs:
       matrix:
         python-version: [3.8]
         node-version: [16.x]
+    env:
+      APP_ENV: master
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     steps:
     - run: echo "The job was automatically triggered by a ${{ github.event_name }} event."
     - run: echo "This job is now running on a ${{ runner.os }} server hosted by GitHub!"
@@ -46,11 +50,14 @@ jobs:
       run: |
         ls ${{ github.workspace }}
     - name: Check serverless  version
-      run:  serverless --version
+      run:  sls --version
     - name: serverless deploy
-      uses: serverless/github-action@v3.1
+      # uses: serverless/github-action@v3.1
+      # with:
+      #   args: deploy
+      # env:
+      #   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      uses: serverless/github-action@master
       with:
-        args: deploy
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          args: deploy --stage production --force
