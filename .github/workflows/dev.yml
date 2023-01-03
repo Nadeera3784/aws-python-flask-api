@@ -37,16 +37,16 @@ jobs:
       run:  |
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: clear cache serverless
-      run: serverless requirements cleanCache
-    - name: Install wsgi
-      run: serverless plugin install -n serverless-wsgi
+    # - name: clear cache serverless
+    #   run: serverless requirements cleanCache
+    # - name: Install wsgi
+    #   run: serverless plugin install -n serverless-wsgi
 
-    - name: Install serverless framework        
-      run: curl -o- -L https://slss.io/install | bash  
-                 
-    - name: Deploy to Lambda Function and API Gateway        
-      run: npx serverless deploy --stage dev
+    # - name: Install serverless framework        
+    #   run: curl -o- -L https://slss.io/install | bash  
+
+    # - name: Deploy to Lambda Function and API Gateway        
+    #   run: npx serverless deploy --stage dev
 
     # - name: serverless deploy
     #   uses: serverless/github-action@v3.1
@@ -56,3 +56,29 @@ jobs:
     #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
     #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
+
+    - name: Install AWS CLI        
+      uses: unfor19/install-aws-cli-action@v1        
+      with:          
+        version: 1        
+      env:          
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}          
+        aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY }}          
+        aws-region: us-east-1             
+    - name: Configure AWS credentials        
+      uses: aws-actions/configure-aws-credentials@v1        
+      with:          
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}                
+        aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY }}          
+        aws-region: us-east-1             
+    - name: Login to Amazon ECR        
+      id: login-ecr        
+      uses: aws-actions/amazon-ecr-login@v1                                 
+    - name: Create docker images        
+      run: docker build -t 240833302201.dkr.ecr.us-east-1.amazonaws.com/test_lambda:lambda .             
+    - name: Upload docker into ECR        
+      run: docker push 240833302201.dkr.ecr.us-east-1.amazonaws.com/test_lambda:lambda             
+    - name: Install serverless framework        
+      run: curl -o- -L https://slss.io/install | bash             
+    - name: Deploy to Lambda Function and API Gateway        
+      run: npx serverless deploy --stage dev
