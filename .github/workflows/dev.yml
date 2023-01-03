@@ -19,8 +19,6 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-
     - name: Install Serverless Framework
       run: npm install -g serverless@2
     - name: Install npm dependencies
@@ -59,7 +57,6 @@ jobs:
           cache: 'pip'
       - name: Display Python version
         run: python -c "import sys; print(sys.version)"
-        run: echo "python --version"
       - name: Install dependencies
         run:  |
           python -m pip install --upgrade pip
